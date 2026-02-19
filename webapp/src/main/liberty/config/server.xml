@@ -1,0 +1,19 @@
+<server>
+  <featureManager>
+    <feature>servlet-6.0</feature>
+    <feature>restfulWS-3.1</feature>
+    <feature>pages-3.1</feature>
+    <feature>beanValidation-3.0</feature>
+    <feature>cdi-4.0</feature>
+    <feature>appSecurity-5.0</feature>
+    <feature>mpConfig-3.0</feature>
+    <feature>jsonb-3.0</feature>
+  </featureManager>
+  
+  <httpEndpoint host="*" httpPort="12445"></httpEndpoint>
+  <sslDefault sslRef="defaultSsl"></sslDefault>
+  <ssl id="defaultSsl" keyStoreRef="defaultKeyStore" trustStoreRef="defaultTrustStore"></ssl>
+  <keyStore id="defaultKeyStore" location="${server.config.dir}/keychain.p12" password="changeit"></keyStore>
+  <keyStore id="defaultTrustStore" location="${server.config.dir}/keychain.p12" password="changeit"></keyStore>
+  <httpSession invalidateOnUnauthorizedSessionRequestException="true" />
+</server>

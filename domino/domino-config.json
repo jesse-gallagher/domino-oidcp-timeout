@@ -1,0 +1,193 @@
+{
+    "autoConfigPreferences": {
+        "startServerAfterConfiguration": true,
+        "consoleLogOutput": {
+            "show": "all",
+            "pauseOnErrorSeconds": 30
+        }
+    },
+    "serverSetup": {
+        "server": {
+            "type": "first",
+            "name": "OIDCPTest",
+            "domainName": "OIDCP",
+            "title": "Domino OIDCP Test Container",
+            "password": null,
+            "minPasswordLength": 0,
+            "serverTasks": "http,nomad,certmgr"
+        },
+        "network": {
+            "hostName": "domino-oidcp.example.com"
+        },
+        "org": {
+            "orgName": "OIDCP",
+            "certifierPassword": "ThisIsATestPassword"
+        },
+        "admin": {
+            "firstName": "OIDCP",
+            "lastName": "Admin",
+            "password": "password",
+            "IDFilePath": "/local/notesdata/admin.id"
+        },
+        "security": {
+            "ACL": {
+                "prohibitAnonymousAccess": true,
+                "addLocalDomainAdmins": true
+            },
+            "TLSSetup": {
+                "method": "import",
+                "importFilePath": "/local/keychain.p12",
+                "importFilePassword": "changeit"
+            }
+        },
+        "registerUsers": {
+            "users": [
+                {
+                    "firstName": "Foo",
+                    "lastName": "Fooson",
+                    "shortName": "ffooson",
+                    "password": "changeit",
+                    "internetAddress": "foo@fooson.com"
+                }
+            ]
+        },
+        "notesINI": {
+            "DEBUG_OIDC": "2",
+            "DEBUG_OIDC_CACHE": "3",
+            "DEBUG_OIDC_CONFIG": "1",
+            "DEBUG_OIDC_VAULT": "1",
+            "DEBUG_OIDC_PROVIDER": "3",
+            "WEBAUTH_VERBOSE_TRACE": "1",
+            "DEBUG_NAMELOOKUP": "0",
+            "DominoSessionCookieUniqueNames": "1"
+        }
+    },
+    "IDVault": {
+        "name": "O=OIDCPVault",
+        "description": "OIDCP Test ID Vault",
+        "IDFile": "idvault.id",
+        "IDPassword": "changeit",
+        "passwordReset": {
+            "helpText": "I am a mere test server"
+        },
+        "securitySettingsPolicy": {
+            "name": "OIDCPVaultPolicy",
+            "description": "OIDCP Test Vault Policy"
+        },
+        "masterPolicy": {
+            "description": "OIDCP Test Vault Master Policy"
+        }
+    },
+    "appConfiguration": {
+        "databases": [
+            {
+                "filePath": "names.nsf",
+                "action": "update",
+                "documents": [
+                    {
+                        "action": "update",
+                        "findDocument": {
+                            "Type": "Server",
+                            "ServerName": "CN=OIDCPTest/O=OIDCP"
+                        },
+                        "items": {
+                            "HTTP_HomeURL": "homepage.nsf",
+                            "FullAdmin": "LocalDomainAdmins",
+                            "CreateAccess": "LocalDomainAdmins",
+                            "ReplicaAccess": "LocalDomainAdmins",
+                            "UnrestrictedList": "LocalDomainAdmins",
+                            "OnBehalfOfLst": "LocalDomainAdmins",
+                            "RestrictedList": "LocalDomainAdmins",
+                            "OnBehalfOfInvokerLst": [
+                                "LocalDomainAdmins",
+                                "LocalDomainServers"
+                            ],
+                            "HTTP_Port": 80,
+                            "HTTP_NormalMode": "1",
+                            "HTTP_SSLPort": 12443,
+                            "HTTP_SSLMode": "1",
+                            "NSDEnbld": "1",
+                            "FREnbld": "1",
+                            "LdISite": "1",
+                            "HTTP_AuthView": "($Users)"
+                        }
+                    },
+                    {
+                        "action": "create",
+                        "computeWithForm": true,
+                        "items": {
+                            "Form": "WebSite",
+                            "Type": "WebSite",
+                            "ISiteName": "OIDCP Global",
+                            "ISiteOrg": "OIDCP",
+                            "WSHostingSrvrs": [
+                                "CN=OIDCPTest/O=OIDCP"
+                            ],
+                            "WSIsDflt": "1",
+                            "HTTP_MaxPostDataLength": "1000000",
+                            "HTTP_EnableSessionAuth": "1",
+                            "HTTP_UTF8": "1",
+                            "TCPAnonymous": "0",
+                            "TCPNameAndPwd": "0",
+                            "HTTP_TCP_Redirect": "1",
+                            "SSLAnonymous": "1",
+                            "SSLBearerToken": "1",
+                            "SSLNameAndPwd": "1",
+                            "SSLCert": "0",
+                            "SSLPasskey": "1",
+                            "HTTP_SessionCookieHTTPOnly": "1",
+                            "HTTP_SessionCookieSecure": "1"
+                        }
+                    },
+                    {
+                        "action": "create",
+                        "computeWithForm": true,
+                        "items": {
+                            "Form": "WebSite",
+                            "Type": "WebSite",
+                            "ISiteName": "domino-oidcp.example.com",
+                            "ISiteOrg": "OIDCP",
+                            "ISiteAdrs": [
+                                "domino-oidcp.example.com"
+                            ],
+                            "WSHostingSrvrs": [
+                                "CN=OIDCPTest/O=OIDCP"
+                            ],
+                            "WSIsDflt": "0",
+                            "WSDominoOIDCProvider": "domino-oidcp.example.com",
+                            "HTTP_MaxPostDataLength": "1000000",
+                            "HTTP_EnableSessionAuth": "1",
+                            "HTTP_UTF8": "1",
+                            "TCPAnonymous": "0",
+                            "TCPNameAndPwd": "0",
+                            "HTTP_TCP_Redirect": "1",
+                            "SSLAnonymous": "0",
+                            "SSLBearerToken": "0",
+                            "SSLNameAndPwd": "1",
+                            "SSLCert": "0",
+                            "SSLPasskey": "1"
+                        }
+                    }
+                ]
+            },
+            {
+                "action": "create",
+                "filePath": "idpcat.nsf",
+                "templatePath": "idpcat.ntf",
+                "title": "IdP Catalog"
+            },
+            {
+                "action": "create",
+                "filePath": "admincentral.nsf",
+                "templatePath": "admincentral.ntf",
+                "title": "Admin Central"
+            },
+            {
+                "action": "create",
+                "filePath": "domcfg.nsf",
+                "templatePath": "domcfg5.ntf",
+                "title": "Domino Web Configuration"
+            }
+        ]
+    }
+}

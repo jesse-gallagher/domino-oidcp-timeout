@@ -1,0 +1,39 @@
+services:
+  domino:
+    build:
+      context: ./domino
+      args:
+        - BASEIMAGE=hclcr.io/domino/domino-container:14.5FP1
+    ports:
+      - "12443:12443"
+      - "12444:12444"
+    cap_add:
+      - SYS_PTRACE
+    stdin_open: true
+    tty: true
+    hostname: domino-oidcp.example.com
+    networks:
+      - domninonet
+    environment:
+      - LANG=en_US.UTF-8
+      - TZ=America/New_York
+      - SetupAutoConfigure=1
+      - SetupAutoConfigureParams=/local/domino-config.json
+      - DOMINO_DOCKER_STDOUT=yes
+      - CustomNotesdataZip=/local/notesdata.zip
+  webapp:
+    build:
+      context: ./webapp
+    ports:
+      - "12445:12445"
+    depends_on:
+      - domino
+    hostname: oidcp-testapp.example.com
+    networks:
+      - domninonet
+    environment:
+      - LANG=en_US.UTF-8
+      - TZ=America/New_York
+
+networks:
+  domninonet: {}

@@ -1,0 +1,9 @@
+services:
+  webapp:
+    build:
+      context: ./webapp
+    ports:
+      - "13080:13080"
+    environment:
+      - LANG=en_US.UTF-8
+      - TZ=America/New_York
