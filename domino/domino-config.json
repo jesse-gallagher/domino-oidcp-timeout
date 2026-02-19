@@ -176,6 +176,25 @@
                             "HTTP_SessionCookieHTTPOnly": "1",
                             "HTTP_SessionCookieSecure": "1"
                         }
+                    },
+                    {
+                        "action": "create",
+                        "computeWithForm": true,
+                        "items": {
+                            "Form": "local",
+                            "ConnectionMode": "0",
+                            "ConnectionRecordFirst": "1",
+                            "ConnectionType": "0",
+                            "Destination": "CN=OIDCPTest/O=OIDCP",
+                            "DestinationDomain": "OIDCP",
+                            "Enabled": "1",
+                            "OptionalNetworkAddress": "127.0.0.1",
+                            "PhoneNumber": "127.0.0.1",
+                            "PortName": "TCPIP",
+                            "Source": "CN=OIDCPTest/O=OIDCP",
+                            "SourceDomain": "OIDCP",
+                            "Type": "Connection"
+                        }
                     }
                 ]
             },
@@ -196,6 +215,22 @@
                 "filePath": "domcfg.nsf",
                 "templatePath": "domcfg5.ntf",
                 "title": "Domino Web Configuration"
+            },
+            {
+                "action": "create",
+                "filePath": "configoidcp.nsf",
+                "templatePath": "/local/configoidcp.ntf",
+                "title": "OIDCP Startup Config Agent",
+                "agents": [
+                    {
+                        "name": "Config",
+                        "action": "sign"
+                    },
+                    {
+                        "name": "Config",
+                        "action": "run"
+                    }
+                ]
             }
         ]
     }
