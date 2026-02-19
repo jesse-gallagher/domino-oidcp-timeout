@@ -52,11 +52,18 @@
             ]
         },
         "notesINI": {
+            "DEBUG_OIDCLOGIN": "4",
+            "DEBUG_OIDC_LOGIN_REDIRECT": "1",
+            "DEBUG_HTTP_BEARER_AUTH": "4",
             "DEBUG_OIDC": "2",
-            "DEBUG_OIDC_CACHE": "3",
-            "DEBUG_OIDC_CONFIG": "1",
+            "DEBUG_OIDC_CACHE": "6",
+            "DEBUG_OIDC_CONFIG": "3",
             "DEBUG_OIDC_VAULT": "1",
             "DEBUG_OIDC_PROVIDER": "3",
+            "DEBUG_JWS": "4",
+            "DEBUG_OIDC_CURL_APIS": "4",
+            "DEBUG_OIDC_JSON_PARSER": "3",
+            "websess_verbose_trace": "1",
             "WEBAUTH_VERBOSE_TRACE": "1",
             "DEBUG_NAMELOOKUP": "0",
             "DominoSessionCookieUniqueNames": "1"
