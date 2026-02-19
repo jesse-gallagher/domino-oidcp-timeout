@@ -165,7 +165,9 @@
                             "SSLBearerToken": "0",
                             "SSLNameAndPwd": "1",
                             "SSLCert": "0",
-                            "SSLPasskey": "1"
+                            "SSLPasskey": "1",
+                            "HTTP_SessionCookieHTTPOnly": "1",
+                            "HTTP_SessionCookieSecure": "1"
                         }
                     }
                 ]
